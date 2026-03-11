@@ -23,7 +23,7 @@ resource "aws_eks_cluster" "main" {
   enabled_cluster_log_types = [ 
     "api",
     "audit",
-    "authentication",
+    "authenticator",
     "controllerManager",
     "scheduler"
    ]
