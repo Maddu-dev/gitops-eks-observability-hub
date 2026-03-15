@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: catalog-Service
+  name: catalog-service
   labels:
     app.kubernetes.io/name: catalog
 spec:
