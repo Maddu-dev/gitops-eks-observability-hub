@@ -6,22 +6,26 @@ metadata:
     app.kubernetes.io/name: catalog
 spec:
   replicas: 1
-  startegy:
+  strategy:
     rollingUpdate:
       maxUnavailable: 1
-    type: rollingUpdate
+    type: RollingUpdate
   selector:
     matchLabels:
       app.kubernetes.io/name: catalog
-  template
+  template:
     metadata:
-      name:
+      name: catalog
       labels:
+         app.kubernetes.io/name: catalog
     spec:
       securityContext:
         fsGroup: 1000
       containers:
         - name: catalog
+          envFrom:
+            - configMapRef:
+                name: catalog
           securityContext:
             capabilities:
               drop:
