@@ -39,9 +39,20 @@ VPC · EKS · ECR · RDS (MySQL) · ElastiCache (Redis) · DynamoDB · SQS · AL
 
 Terraform · Kubernetes · Docker · GitHub Actions · ArgoCD · Karpenter · Helm · Prometheus · Grafana
 
+## Architecture
+
+<p align="center">
+  <img src="architecture/retailstore-eks-architecture.png" alt="RetailStore on AWS EKS — GitOps and Observability" width="100%">
+</p>
+
+The RetailStore application runs as four independent microservices on Amazon EKS, fronted by a Spring Boot Web UI behind an AWS ALB Ingress (SSL via ACM). All stateful workloads are offloaded to managed AWS services — Catalog to RDS (MySQL), Carts to DynamoDB, Checkout to ElastiCache (Redis), and Orders to RDS (PostgreSQL), with order events published asynchronously to SQS. The cluster keeps only stateless compute; everything persistent lives in the AWS data plane.
+
+Deployments follow a GitOps model — GitHub Actions builds and pushes images to ECR and bumps the manifest tag, then ArgoCD reconciles the manifests repo to the live cluster. Prometheus scrapes service metrics and Grafana visualises them, with alerting on SLOs.
+
 ---
 
 ## Author
 
 **Maddu Veeranareshkumar**
 [GitHub](https://github.com/Maddu-dev)
+
