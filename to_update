@@ -1,0 +1,6 @@
+Below have to updated across the all deployments
+topologySpreadConstraints
+
+      # Forces Pods to run ONLY on On-demand nodes
+      nodeSelector:
+        karpenter.sh/capacity-type: on-demand
